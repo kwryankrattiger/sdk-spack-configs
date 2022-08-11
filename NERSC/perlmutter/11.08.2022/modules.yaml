@@ -1,0 +1,27 @@
+################################################################################
+#                                                                              #
+# ECP Data and Visualization Facility Configuration file                       #
+#                                                                              #
+# Facility: NERSC-Perlmutter                                                   #
+# Maintainer: Ryan Krattiger (ryan.krattiger@kitware.com)                      #
+#                                                                              #
+# Notes:                                                                       #
+# * TCL Modules are not used on this system, so configurations are not listed  #
+#   here.                                                                      #
+# * Changing the modules default root is recommend for those who which to      #
+#   deploy these packages for a project. It is also recommended to change the  #
+#   install_root:prefix in the config.yaml                                     #
+#                                                                              #
+################################################################################
+modules:
+  default:
+    roots:
+      lmod: /global/u1/r/$user/spack-workspace/perlmutter/modules/lmod
+    enable:
+    - lmod
+    lmod:
+      all:
+        autoload: direct
+      hierarchy: [mpi]
+      core_compilers:
+      - gcc@7.5.0

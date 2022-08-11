@@ -1,0 +1,119 @@
+################################################################################
+#                                                                              #
+# ECP Data and Visualization Facility Configuration file                       #
+#                                                                              #
+# Facility: NERSC-Perlmutter                                                   #
+# Maintainer: Ryan Krattiger (ryan.krattiger@kitware.com)                      #
+#                                                                              #
+# Notes:                                                                       #
+# * craype and libfabric are necessary in the compiler modules because the are #
+#   implicitly required, but not implicitly loaded by the PrgEnv or compiler.  #
+#                                                                              #
+################################################################################
+compilers:
+# GCC Compilers
+# Core System GCC Compiler
+- compiler:
+    spec: gcc@7.5.0
+    paths:
+      cc: /usr/bin/gcc
+      cxx: /usr/bin/g++
+      f77: /usr/bin/gfortran
+      fc: /usr/bin/gfortran
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules: []
+# HPC GCC Compilers
+- compiler:
+    spec: gcc@10.3.0
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-gnu
+    - gcc/10.3.0
+    - craype-x86-milan
+    - libfabric
+- compiler:
+    spec: gcc@11.2.0 # System Default
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-gnu
+    - gcc/11.2.0
+    - craype-x86-milan
+    - libfabric
+# HPC NVidia compilers
+- compiler:
+    spec: nvhpc@21.11 # System Default
+    paths:
+      cc: /opt/cray/pe/craype/default/bin/cc
+      cxx: /opt/cray/pe/craype/default/bin/CC
+      f77: /opt/cray/pe/craype/default/bin/ftn
+      fc: /opt/cray/pe/craype/default/bin/ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-nvidia
+    - nvidia/21.11
+    - craype-x86-milan
+    - libfabric
+# HPC Cray compilers
+- compiler:
+    spec: cce@13.0.1
+    paths:
+      cc: /opt/cray/pe/craype/default/bin/cc
+      cxx: /opt/cray/pe/craype/default/bin/CC
+      f77: /opt/cray/pe/craype/default/bin/ftn
+      fc: /opt/cray/pe/craype/default/bin/ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-cray
+    - cce/13.0.1
+    - craype-x86-milan
+    - libfabric
+- compiler:
+    spec: cce@13.0.2
+    paths:
+      cc: /opt/cray/pe/craype/default/bin/cc
+      cxx: /opt/cray/pe/craype/default/bin/CC
+      f77: /opt/cray/pe/craype/default/bin/ftn
+      fc: /opt/cray/pe/craype/default/bin/ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-cray
+    - cce/13.0.2
+    - craype-x86-milan
+    - libfabric
+- compiler:
+    spec: cce@14.0.1 # System Default
+    paths:
+      cc: /opt/cray/pe/craype/default/bin/cc
+      cxx: /opt/cray/pe/craype/default/bin/CC
+      f77: /opt/cray/pe/craype/default/bin/ftn
+      fc: /opt/cray/pe/craype/default/bin/ftn
+    flags: {}
+    operating_system: sles15
+    target: any
+    modules:
+    - PrgEnv-cray
+    - cce/14.0.1
+    - craype-x86-milan
+    - libfabric

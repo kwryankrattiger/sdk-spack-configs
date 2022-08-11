@@ -1,0 +1,250 @@
+################################################################################
+#                                                                              #
+# ECP Data and Visualization Facility Configuration file                       #
+#                                                                              #
+# Facility: NERSC-Perlmutter                                                   #
+# Maintainer: Ryan Krattiger (ryan.krattiger@kitware.com)                      #
+#                                                                              #
+# Notes:                                                                       #
+# * The list of package specifications is loosly based on those used by E4S.   #
+#                                                                              #
+################################################################################
+packages:
+  all:
+    compiler:
+    - gcc@7.5.0
+    - gcc@10.3.0
+    - gcc@11.2.0
+    - nvhpc@21.11
+    - cce@13.0.1
+    - cce@13.0.2
+    - cce@14.0.1
+    providers:
+      blas: [cray-libsci]
+      lapack: [cray-libsci]
+      mpi: [cray-mpich]
+  amrex:
+    variants: +fortran +hypre +openmp +petsc +shared
+  bzip2:
+    version: [1.0.6]
+    externals:
+    - spec: bzip2@1.0.6
+      prefix: /usr
+  cray-libsci:
+    buildable: false
+    externals:
+    - spec: cray-libsci@21.08.1.2
+      modules:
+      - cray-libsci/21.08.1.2
+  cray-mpich:
+    buildable: false
+    externals:
+    - spec: cray-mpich@8.1.17 %cce
+      prefix: /opt/cray/pe/mpich/8.1.17/ofi/cray/10.0
+      modules:
+      - cray-mpich/8.1.17
+    - spec: cray-mpich@8.1.17 %gcc
+      prefix: /opt/cray/pe/mpich/8.1.17/ofi/gnu/9.1
+      modules:
+      - cray-mpich/8.1.17
+      - cudatoolkit/11.5
+    - spec: cray-mpich@8.1.15 %gcc
+      prefix: /opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1
+      modules:
+      - cray-mpich/8.1.15
+      - cudatoolkit/11.5
+    - spec: cray-mpich@8.1.15 %nvhpc
+      prefix: /opt/cray/pe/mpich/8.1.15/ofi/nvidia/20.7
+      modules:
+      - cray-mpich/8.1.15
+      - cudatoolkit/21.9_11.4
+  cuda:
+    buildable: false
+    version: [11.7.0, 11.5.0]
+    externals:
+    - spec: cuda@11.7.0 ^nvidia@22.5
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/22.5/cuda/11.7
+      modules:
+      - cudatoolkit/11.7
+    - spec: cuda@11.5.0 ^nvidia@21.11
+      prefix: /opt/nvidia/hpc_sdk/Linux_x86_64/21.11/cuda/11.5
+      modules:
+      - cudatoolkit/11.5
+
+  patchelf:
+    buildable: false
+    version: [0.13.1]
+    externals:
+    - spec: patchelf@0.13.1
+      prefix: /global/homes/r/rkratt/spack-workspace/software/external/perlmutter/patchelf
+  diffutils:
+    version: [3.6]
+    externals:
+    - spec: diffutils@3.6
+      prefix: /usr
+  findutils:
+    version: [4.6.0]
+    externals:
+    - spec: findutils@4.6.0
+      prefix: /usr
+  hdf5:
+    variants: +fortran +hl +shared api=v18
+    version: [1.12.1]
+  hypre:
+    variants: +openmp +superlu-dist
+  git:
+    version: [2.26.2]
+    buildable: false
+    externals:
+    - spec: git@2.26.2
+      prefix: /usr
+  gettext:
+    version: [0.19.8.1]
+    buildable: false
+    externals:
+    - spec: gettext@0.19.8.1
+      prefix: /usr
+  libfabric:
+    buildable: false
+    variants: fabrics=sockets,tcp,udp,rxm
+    externals:
+    - spec: libfabric@1.15.0.0
+      prefix: /opt/cray/libfabric/1.15.0.0
+      modules:
+      - libfabric
+  libunwind:
+    variants: +pic +xz
+  mercury:
+    variants: ~bmi
+  mesa:
+    variants: ~osmesa+glx
+  mesa18:
+    variants: ~llvm
+  m4:
+    buildable: false
+    externals:
+    - spec: m4@1.4.18
+      prefix: /usr
+  mpich:
+    variants: ~wrapperrpath
+  ncurses:
+    variants: +termlib
+    externals:
+    - spec: ncurses@6.1
+      prefix: /usr
+  nvhpc:
+    buildable: false
+    externals:
+    - spec: nvhpc@21.11 %gcc@7.5.0
+      modules:
+      - PrgEnv-nvidia
+      - nvidia/21.11
+      - craype-x86-milan
+      - libfabric
+  openssl:
+    version: [1.1.0i]
+    buildable: false
+    externals:
+    - spec: openssl@1.1.0
+      prefix: /usr
+  openssh:
+    version: [7.9p1]
+    buildable: false
+    externals:
+    - spec: openssh@7.9p1
+      prefix: /usr
+  petsc:
+    variants: +openmp +strumpack
+  pdsh:
+    buildable: false
+    externals:
+    - spec: pdsh@2.34
+      prefix: /usr
+  readline:
+    version: [7.0]
+    buildable: false
+    externals:
+    - spec: readline@7.0
+      prefix: /usr
+  slurm:
+    buildable: false
+    version: [20-11-8-1]
+    externals:
+    - spec: slurm@20-11-8-1
+      prefix: /usr
+  superlu-dist:
+    variants: +openmp
+  strumpack:
+    variants: ~slate
+  tar:
+    version: [1.3]
+    buildable: false
+    externals:
+    - spec: tar@1.30
+      prefix: /usr
+  trilinos:
+    variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+  unzip:
+    version: [6.0]
+    buildable: false
+    externals:
+    - spec: unzip@6.0
+      prefix: /usr
+  util-linux-uuid:
+    version: [2.33.1]
+    buildable: false
+    externals:
+    - spec: util-linux-uuid@2.33.1
+      prefix: /usr
+  xz:
+    version: [5.2.3]
+    buildable: false
+    externals:
+    - spec: xz@5.2.3
+      prefix: /usr
+  zsh:
+    version: [5.6]
+    buildable: false
+    externals:
+    - spec: zsh@5.6
+      prefix: /usr
+  python:
+    buildable: false
+    version: [3.9.7.1]
+    externals:
+    - spec: python@3.9.7.1
+      modules: [cray-python/3.9.7.1]
+      prefix: /opt/cray/pe/python/3.9.7.1
+  py-mpi4py:
+    buildable: false
+    version: [3.1.3]
+    externals:
+    - spec: py-mpi4py@3.1.3
+      modules:
+      - cray-mpich/8.1.15
+      - cray-python/3.9.7.1
+  py-numpy:
+    buildable: false
+    version: [1.20.3]
+    externals:
+    - spec: py-numpy@1.20.3
+      modules:
+      - cray-python/3.9.7.1
+  # On most cray systems blt_find_mpi should be disabled for all of these packages
+  # There is currently a patch to remove this requirement and possible deprecate
+  # this variant. The following lines are assuming the modified spack recipes
+  # are in use. If that is not the case, or these packages have issues with MPI,
+  # it is recommneded to disable blt_find_mpi.
+  vtk-h:
+    variants: +blt_find_mpi
+  apcomp:
+    variants: +blt_find_mpi
+  ascent:
+    variants: +blt_find_mpi
+  conduit:
+    variants: +blt_find_mpi
+  dray:
+    variants: +blt_find_mpi
